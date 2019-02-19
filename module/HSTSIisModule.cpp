@@ -161,12 +161,13 @@ public:
 			return RQ_NOTIFICATION_FINISH_REQUEST;
 		}
 		bstrSiteName = SysAllocString(pHttpSite->GetSiteName());
-		bstrConfigCommitPath = SysAllocStringLen(bstrConfigCommitBase, SysStringLen(bstrConfigCommitBase) + SysStringLen(bstrSiteName) + 1);
+		bstrConfigCommitPath = SysAllocStringLen(NULL, SysStringLen(bstrConfigCommitBase) + SysStringLen(bstrSiteName) + 1);
 		if (bstrConfigCommitPath == nullptr) {
 			pProvider->SetErrorStatus(HRESULT_FROM_WIN32(ERROR_NOT_ENOUGH_MEMORY));
 			cleanup();
 			return RQ_NOTIFICATION_FINISH_REQUEST;
 		}
+		wcscpy(bstrConfigCommitPath, bstrConfigCommitBase);
 		wcscat(bstrConfigCommitPath, bstrSiteName);
 
 		// Create
